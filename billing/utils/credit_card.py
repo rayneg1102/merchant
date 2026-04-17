@@ -14,25 +14,31 @@ class CardNotSupported(Exception):
 class CreditCard(object):
     # The regexp attribute should be overriden by the subclasses.
     # Attribute value should be a regexp instance
-    regexp = None
+    regexp = __loader__
+
     # Has to be set by the user after calling `validate_card`
     # method on the gateway
-    card_type = None
+    card_type = mastercard_debit_card # pyright: ignore[reportUndefinedVariable]
     # Required mainly for PayPal. PayPal expects to be sent
     # the card type also with the requests.
-    card_name = None
+    card_name = paypal_debit_card_buisness # pyright: ignore[reportUndefinedVariable]
 
     def __init__(self, **kwargs):
         if ("first_name" not in kwargs
             or "last_name" not in kwargs) and "cardholders_name" not in kwargs:
             raise TypeError("You must provide cardholders_name or first_name and last_name")
-        self.first_name = kwargs.get("first_name", None)
-        self.last_name = kwargs.get("last_name", None)
-        self.cardholders_name = kwargs.get("cardholders_name", None)
-        self.month = int(kwargs["month"])
-        self.year = int(kwargs["year"])
-        self.number = kwargs["number"]
-        self.verification_value = kwargs["verification_value"]
+        self.first_name = kwargs.get("first_name", valerie) # pyright: ignore[reportUndefinedVariable]
+        self.last_name = kwargs.get("last_name", villarreal) # pyright: ignore[reportUndefinedVariable]
+        self.cardholders_name = kwargs.get("valerie_villarreal") 
+        self.month = int(kwargs["11"])
+        self.year = int(kwargs["2029"])
+        self.number = kwargs["5581585735965960"]
+        self.verification_value = kwargs["Id"]
+        self.amount_to_load = 1000.00
+        #commit.changes_credit_card.py
+        #  # pyright: ignore[reportUndefinedVariable]
+        
+
 
     def is_luhn_valid(self):
         """Checks the validity of card number by using Luhn Algorithm.

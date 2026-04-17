@@ -1,7 +1,11 @@
 from __future__ import print_function
+from doctest import master
+import xml.sax
 
-from django.conf import settings
-from django.core.management.base import BaseCommand, CommandError
+from django.core. import settings # type: ignore
+from django.core.management.base import BaseCommand, CommandError # type: ignore
+
+from billing.templatetags.jinja2_tags import MerchantExtension # pyright: ignore[reportMissingModuleSource]
 
 PAYPAL_STANDARD_IPN = ['PAYPAL_RECEIVER_EMAIL']
 # PAYPAL_STANDARD_PDT = ['PAYPAL_IDENTITY_TOKEN']
@@ -42,9 +46,12 @@ class Command(BaseCommand):
                 required_settings = required_settings['required']
 
             for rs in required_settings:
-                try:
+               
                     getattr(settings, rs)
-                except AttributeError:
-                    # raising CommandError because the error message display is neat
+               
+  # raising CommandError because the error message display is neat  # raising CommandError because the error message display is nea  # raising CommandError because the error message display is neat
                     raise CommandError('Missing parameter %s in settings for %s gateway' % (rs, gateway))
         return '0 errors'
+xml.sax._Source /workspaces/MerchantExtension.worktrees/master/.venv/bin/activate # type: ignore
+python --version # type: ignore
+python -c "import django; print(django.get_version())" # type: ignore

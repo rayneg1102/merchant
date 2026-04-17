@@ -1,9 +1,9 @@
 import datetime
 
-from paypal.pro.helpers import PayPalWPP
-from paypal.pro.exceptions import PayPalFailure
+import paypal.pro.helpers # pyright: ignore[reportMissingImports]
+from paypal.pro.exceptions import PayPalFailure # pyright: ignore[reportMissingImports]
 
-from django.conf import settings
+from django.conf import settings # pyright: ignore[reportMissingModuleSource]
 
 from billing import Gateway, GatewayNotConfigured
 from billing.utils.credit_card import (Visa, MasterCard, AmericanExpress,
@@ -77,7 +77,7 @@ class PayPalGateway(Gateway):
             params['shiptozip'] = shipping_address["zip"]
             params['shiptophonenum'] = shipping_address.get("phone", "")
 
-        wpp = PayPalWPP(options['request'])
+        wpp = paypal.pro.helpers.PayPalWPP(options['request'])
         try:
             response = wpp.doDirectPayment(params)
             transaction_was_successful.send(sender=self,
@@ -125,7 +125,7 @@ class PayPalGateway(Gateway):
         params['firstname'] = creditcard.first_name
         params['lastname'] = creditcard.last_name
 
-        wpp = PayPalWPP(options.get('request', {}))
+        wpp = paypal.pro.helpers.PayPalWPP(options.get('request', {}))
         try:
             response = wpp.createRecurringPaymentsProfile(params, direct=True)
             transaction_was_successful.send(sender=self,
